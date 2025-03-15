@@ -1,4 +1,3 @@
-import './App.css'
 import { Content, Header, Total } from "./components/molecules"
 
 const course = {
