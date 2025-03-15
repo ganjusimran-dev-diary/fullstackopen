@@ -1,4 +1,5 @@
 import FeedbackInputRow from "./FeedbackInputRow";
 import StatisticContent from "./StatisticContent";
+import StatisticTable from "./StatisticTable";
 
-export { FeedbackInputRow, StatisticContent }; 
+export { FeedbackInputRow, StatisticContent, StatisticTable }; 

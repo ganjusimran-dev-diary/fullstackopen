@@ -1,4 +1,5 @@
 import { EmptyFeedback, Heading, StatisticLine } from '../atoms/index';
+import StatisticTable from './StatisticTable';
 
 const StatisticContent = ({ title = '', isEmptyFeedback = false, statisticsData = [] }) => {
 
@@ -7,14 +8,19 @@ const StatisticContent = ({ title = '', isEmptyFeedback = false, statisticsData 
             <Heading title={title} />
             {!!isEmptyFeedback ?
                 <EmptyFeedback /> : (
-                    <>
-                        {
-                            statisticsData?.map(({ name, value }) => <StatisticLine key={name} rowTitle={name} rowValue={value} />)
-                        }
-                    </>
+                    <StatisticTable data={statisticsData} />
                 )}
         </>
     )
 }
 
 export default StatisticContent
+
+/** 
+ * THIS IS THE IMPLEMENTATION BEFORE MOVING STAT DATA TO TABLE
+<>
+    {
+        statisticsData?.map(({ name, value }) => <StatisticLine key={name} rowTitle={name} rowValue={value} />)
+    }
+</>
+*/
