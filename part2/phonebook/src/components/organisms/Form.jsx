@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "../atoms";
 import InputText from "../atoms/Input";
 
-const Form = ({ submitText = '', onSubmit = () => { } }) => {
+const Form = ({ submitText = '', onSubmit = () => { }, disabled = false }) => {
 
     const [newName, setNewName] = useState('')
     const [newNumber, setNewNumber] = useState('')
@@ -25,8 +25,8 @@ const Form = ({ submitText = '', onSubmit = () => { } }) => {
     return (
         <form>
             <InputText label="name" placeholder="Enter Name" value={newName} onChange={onChangeValue} />
-            <InputText label="number" placeholder="Enter Phone number" value={newNumber} onChange={(event) => onChangeValue(event, 'number')} />
-            <Button disabled={!newName || !newNumber} title={submitText} onClick={onPressSubmit} />
+            <InputText type="tel" label="number" placeholder="Enter Phone number" value={newNumber} onChange={(event) => onChangeValue(event, 'number')} />
+            <Button disabled={!newName || !newNumber || !!disabled} title={submitText} onClick={onPressSubmit} />
         </form>
     );
 }

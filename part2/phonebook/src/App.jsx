@@ -1,17 +1,18 @@
-import { useState } from 'react'
-import { AddPhoneSection, Form, ViewPhoneSection } from './components/organisms/index'
+import { AddPhoneSection, ViewPhoneSection } from './components/organisms/index'
 import { Heading } from './components/atoms/index'
 import InputText from './components/atoms/Input';
+import usePhonebookHelper from './usePhonebookHelper';
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-123456', id: 1 },
-  ]);
-  const [filterText, setFilterText] = useState('');
-
-  const onChangeFilterValue = (event) => {
-    setFilterText(event.target.value);
-  }
+  const {
+    persons,
+    loading,
+    fetchError,
+    filterText,
+    onPressAddPerson,
+    onPressDeletePhone,
+    onChangeFilterValue,
+  } = usePhonebookHelper();
 
   return (
     <div>
@@ -20,10 +21,17 @@ const App = () => {
         label='filter shown with'
         placeholder='Enter text to search'
         value={filterText}
+        disabled={!!loading}
         onChange={onChangeFilterValue}
       />
-      <AddPhoneSection setPersons={setPersons} />
-      <ViewPhoneSection persons={persons} filterText={filterText?.toLowerCase()} />
+      <AddPhoneSection onAddPerson={onPressAddPerson} disabled={!!loading} />
+      <ViewPhoneSection
+        persons={persons}
+        loading={loading}
+        filterText={filterText?.toLowerCase()}
+        fetchError={fetchError}
+        onPressDeletePhone={onPressDeletePhone}
+      />
     </div>
   )
 }

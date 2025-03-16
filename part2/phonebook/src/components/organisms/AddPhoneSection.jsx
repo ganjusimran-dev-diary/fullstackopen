@@ -1,20 +1,16 @@
 import { Form } from './index'
 import { Heading } from '../atoms/index';
 
-const AddPhoneSection = ({ setPersons }) => {
+const AddPhoneSection = ({ onAddPerson = () => { }, disabled = false }) => {
 
     const onPressAdd = (name, number) => {
-        setPersons((prev) => [
-            ...prev,
-            { name, number, id: prev.length + 1 }
-        ])
-    }
-
+        onAddPerson({ name, number });
+    };
 
     return (
         <div>
             <Heading title='add a new' />
-            <Form submitText='add' onSubmit={onPressAdd} />
+            <Form submitText='add' disabled={disabled} onSubmit={onPressAdd} />
         </div>
     )
 }

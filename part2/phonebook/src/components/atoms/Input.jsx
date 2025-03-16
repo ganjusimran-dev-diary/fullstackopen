@@ -1,7 +1,7 @@
-const InputText = ({ label = '', placeholder = '', value = '', onChange = () => { } }) => {
+const InputText = ({ label = '', placeholder = '', value = '', onChange = () => { }, disabled = false, type = 'text' }) => {
     return (
         <div>
-            {label}:  <input placeholder={placeholder} value={value} onChange={onChange} />
+            {label}:  <input type={type} placeholder={placeholder} value={value} onChange={onChange} disabled={disabled} />
         </div>
 
     );

@@ -1,7 +1,13 @@
 import { useMemo } from 'react';
-import { Heading } from '../atoms/index';
+import { Button, Heading } from '../atoms/index';
 
-const ViewPhoneSection = ({ persons = [], filterText = '' }) => {
+const ViewPhoneSection = ({
+    persons = [],
+    filterText = '',
+    fetchError = false,
+    loading = false,
+    onPressDeletePhone = () => { }
+}) => {
 
     const filteredList = useMemo(() => {
         if (!filterText) {
@@ -18,8 +24,21 @@ const ViewPhoneSection = ({ persons = [], filterText = '' }) => {
         <div>
             <Heading title='Number' />
             {
-                filteredList?.map(({ name, number, id }) => <p key={`${id}`}>{name}: {number}</p>)
+                !!fetchError ?
+                    <p>Something went wrong while fetchig phonebook. Please try again later!! </p> :
+                    filteredList?.map(({
+                        name, number, id
+                    }) => <p key={`${id}`}>
+                            {name}: {number} {' '}
+                            <Button
+                                title='delete'
+                                disabled={!!loading}
+                                onClick={() => onPressDeletePhone(id)}
+                            />
+                        </p>
+                    )
             }
+            {!!loading && <p>Loading...</p>}
         </div>
     )
 }
