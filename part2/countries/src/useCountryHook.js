@@ -1,17 +1,23 @@
 import { useState } from "react"
 import { useEffect } from "react"
-import { getAllCountriesData } from "./helpers";
+import { fetchWeatherDetail, getAllCountriesData } from "./helpers";
 import { debounce } from "./utils";
 
 const useCountryHook = () => {
     const [loading, setLoading] = useState(false);
     const [selectedCountryDetail, setSelectedCountryDetail] = useState({});
+    const [selectedCountryWeatherDetail, setSelectedCountryWeatherDetail] = useState({});
     const [allCountriesDetailsData, setAllCountriesDetailsData] = useState({});
     const [allCountriesList, setAllCountriesList] = useState([]);
     const [seachMatchList, setSearchMatchList] = useState([]);
     const [searchError, setSearchError] = useState('');
 
+
     const onSelectViewCountryDetail = (countryName, text = '') => {
+        if (!countryName) {
+            setSelectedCountryDetail({});
+            setSelectedCountryWeatherDetail({});
+        }
         const country = allCountriesDetailsData[countryName];
         setSelectedCountryDetail({
             searchText: text,
@@ -24,10 +30,50 @@ const useCountryHook = () => {
                 alt: country?.flags?.alt || `${country?.name?.common || "Country's"} flag`
             }
         });
+        const selectedCapital = country?.capital?.[0];
+        if (selectedCapital) {
+            if (!!country?.weather?.name?.length) {
+                setSelectedCountryWeatherDetail(country?.weather)
+            } else {
+                setLoading(true);
+                fetchWeatherDetail(selectedCapital).then((response) => {
+                    fetchCapitalWeatherDetail(response?.list?.[0] || {}, countryName);
+                }).catch((err) => { }).finally(() => { setLoading(false) })
+            }
+        } else {
+            setSelectedCountryWeatherDetail({});
+        }
+    }
+
+    const fetchCapitalWeatherDetail = (detail = {}, countryName = '') => {
+        if (!detail?.name) {
+            setSelectedCountryWeatherDetail({});
+            return;
+        }
+        const iconPath = detail?.weather?.[0]?.icon || '';
+        const weather = {
+            name: detail.name,
+            icon: {
+                uri: iconPath ? `https://openweathermap.org/img/wn/${iconPath}@2x.png` : '',
+                alt: detail?.weather?.[0]?.description || 'Weather Icon'
+            },
+            wind: detail?.wind?.speed?.toFixed(2),
+            temperature: `${Math.round(detail?.main?.temp)}`
+        }
+        setSelectedCountryWeatherDetail(weather);
+        setAllCountriesDetailsData((prev) => {
+            return {
+                ...prev,
+                [countryName]: {
+                    ...prev[countryName],
+                    weather
+                }
+            }
+        })
     }
 
     useEffect(() => {
-        setLoading(true)
+        setLoading(true);
         getAllCountriesData().then((response) => {
             if (!response?.error) {
                 const newCountryDetailMap = {};
@@ -41,7 +87,7 @@ const useCountryHook = () => {
             }
         }).catch(() => { }).finally(() => {
             setLoading(false);
-        })
+        });
     }, []);
 
     const onSearchCountry = (text) => {
@@ -51,7 +97,7 @@ const useCountryHook = () => {
             return;
         }
         setSearchError('');
-        onSelectViewCountryDetail({});
+        onSelectViewCountryDetail('');
         setSearchMatchList([])
         if (text?.trim()?.length > 0) {
             let searchedCountries = [];
@@ -85,6 +131,7 @@ const useCountryHook = () => {
         selectedCountryDetail,
         allCountriesDetailsData,
         onSelectViewCountryDetail,
+        selectedCountryWeatherDetail
     }
 };
 

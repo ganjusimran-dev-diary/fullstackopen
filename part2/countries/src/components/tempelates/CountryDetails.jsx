@@ -1,5 +1,4 @@
-import { useMemo } from "react";
-import { GeneralDetail } from "../organisms/index";
+import { Heading, UnorderdList } from "../atoms/index"
 
 const CountryDetails = ({
     name = '',
@@ -10,15 +9,27 @@ const CountryDetails = ({
 }) => {
     return (
         <>
-            <GeneralDetail
-                name={name}
-                capital={capital}
-                area={area}
-                languages={languages}
-                flags={flags}
-            />
+            <Heading title={name} />
+            {
+                capital?.length > 0 && (
+                    <p>Capiltal {capital}</p>
+                )
+            }
+            {
+                area > 0 && (
+                    <p>Area: {area}</p>
+                )
+            }
+            <UnorderdList label="Languages" items={languages} />
+            {
+                !!flags?.uri?.length && (
+                    <p>
+                        <img src={flags?.uri} alt={flags?.alt} />
+                    </p>
+                )
+            }
         </>
-    );
+    )
 }
 
 export default CountryDetails;

@@ -5,7 +5,8 @@ const SearchSection = ({
     onSearchCountry = () => { },
     searchError = '',
     seachMatchList = [],
-    onSelectCountry
+    onSelectCountry,
+    disabled = false,
 }) => {
     return (
         <>
@@ -13,6 +14,7 @@ const SearchSection = ({
                 label='find  countries'
                 placeholder='Search for county(s)'
                 onSearch={onSearchCountry}
+                disabled={disabled}
             />
             {
                 !!searchError?.length > 0 && (
