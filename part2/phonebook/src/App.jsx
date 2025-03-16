@@ -1,5 +1,5 @@
 import { AddPhoneSection, ViewPhoneSection } from './components/organisms/index'
-import { Heading } from './components/atoms/index'
+import { Heading, Notification } from './components/atoms/index'
 import InputText from './components/atoms/Input';
 import usePhonebookHelper from './usePhonebookHelper';
 
@@ -9,14 +9,22 @@ const App = () => {
     loading,
     fetchError,
     filterText,
+    notification,
     onPressAddPerson,
     onPressDeletePhone,
     onChangeFilterValue,
+    onClearNotification,
   } = usePhonebookHelper();
 
   return (
     <div>
       <Heading title='PhoneBook' />
+      <Notification
+        show={notification?.message}
+        message={notification?.message}
+        type={notification?.type}
+        onClearNotification={onClearNotification}
+      />
       <InputText
         label='filter shown with'
         placeholder='Enter text to search'
