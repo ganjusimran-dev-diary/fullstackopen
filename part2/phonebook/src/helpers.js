@@ -1,5 +1,7 @@
 import axios from "axios";
-const BASE_PHONE_BOOK_URL = `${import.meta.env.VITE_BASE_URL}/api/persons`;
+const BASE_PHONE_BOOK_URL = `${
+  import.meta.env?.VITE_BASE_URL || ""
+}/api/persons`;
 
 export const getPhonebookData = async () => {
   return await axios
