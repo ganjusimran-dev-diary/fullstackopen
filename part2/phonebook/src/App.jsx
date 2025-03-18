@@ -1,7 +1,10 @@
-import { AddPhoneSection, ViewPhoneSection } from './components/organisms/index'
-import { Heading, Notification } from './components/atoms/index'
-import InputText from './components/atoms/Input';
-import usePhonebookHelper from './usePhonebookHelper';
+import {
+  AddPhoneSection,
+  ViewPhoneSection,
+} from "./components/organisms/index";
+import { Heading, Notification } from "./components/atoms/index";
+import InputText from "./components/atoms/Input";
+import usePhonebookHelper from "./usePhonebookHelper";
 
 const App = () => {
   const {
@@ -18,7 +21,7 @@ const App = () => {
 
   return (
     <div>
-      <Heading title='PhoneBook' />
+      <Heading title="PhoneBook" />
       <Notification
         show={notification?.message}
         message={notification?.message}
@@ -26,8 +29,8 @@ const App = () => {
         onClearNotification={onClearNotification}
       />
       <InputText
-        label='filter shown with'
-        placeholder='Enter text to search'
+        label="filter shown with"
+        placeholder="Enter text to search"
         value={filterText}
         disabled={!!loading}
         onChange={onChangeFilterValue}
@@ -41,7 +44,7 @@ const App = () => {
         onPressDeletePhone={onPressDeletePhone}
       />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

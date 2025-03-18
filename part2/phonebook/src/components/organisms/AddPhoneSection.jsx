@@ -1,18 +1,17 @@
-import { Form } from './index'
-import { Heading } from '../atoms/index';
+import { Form } from "./index";
+import { Heading } from "../atoms/index";
 
-const AddPhoneSection = ({ onAddPerson = () => { }, disabled = false }) => {
+const AddPhoneSection = ({ onAddPerson = () => {}, disabled = false }) => {
+  const onPressAdd = (name, number) => {
+    onAddPerson({ name, number });
+  };
 
-    const onPressAdd = (name, number) => {
-        onAddPerson({ name, number });
-    };
+  return (
+    <div>
+      <Heading title="add a new" />
+      <Form submitText="add" disabled={disabled} onSubmit={onPressAdd} />
+    </div>
+  );
+};
 
-    return (
-        <div>
-            <Heading title='add a new' />
-            <Form submitText='add' disabled={disabled} onSubmit={onPressAdd} />
-        </div>
-    )
-}
-
-export default AddPhoneSection
+export default AddPhoneSection;
