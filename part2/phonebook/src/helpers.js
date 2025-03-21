@@ -12,7 +12,12 @@ export const addPhoneNumber = async (phoneItem) => {
   return await axios
     .post(BASE_PHONE_BOOK_URL, phoneItem)
     .then((res) => res)
-    .catch((err) => ({ error: err?.message }));
+    .catch((err) => ({
+      error:
+        err?.response?.data?.error ||
+        err?.message ||
+        `Failed to add ${phoneItem?.name}`,
+    }));
 };
 
 export const deletePhoneNumber = async (id, person) => {
@@ -24,7 +29,9 @@ export const deletePhoneNumber = async (id, person) => {
         error:
           err?.status == 404
             ? `Information ${person?.name} has already been removed from server`
-            : `Failed to delete ${person?.name}`,
+            : err?.response?.data?.error ||
+              err?.message ||
+              `Failed to delete ${person?.name}`,
       };
     });
 };
@@ -38,7 +45,9 @@ export const updatePhoneNumber = async (phoneItem, index) => {
         error:
           err?.status == 404
             ? `Information ${phoneItem?.name} has already been removed from server`
-            : `Failed to delete ${persons[deletedIndex]?.name}`,
+            : err?.response?.data?.error ||
+              err?.message ||
+              `Failed to delete ${persons[deletedIndex]?.name}`,
       };
     });
 };

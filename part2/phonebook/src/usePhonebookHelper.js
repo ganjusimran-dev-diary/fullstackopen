@@ -56,7 +56,7 @@ const usePhonebookHelper = () => {
           if (response?.error) {
             setNotification({
               type: "error",
-              message: `Failed to add ${person?.name}`,
+              message: response?.error,
             });
           } else {
             setNotification({
@@ -82,7 +82,11 @@ const usePhonebookHelper = () => {
         `${persons[isAlreadyPresentId]?.name} is already added to phonebook, replace the old number with a new one ?`
       );
       if (onPressReplace) {
-        updatePhoneNumber({ ...person, id: persons[isAlreadyPresentId]?.id })
+        const updatedPerson = {
+          ...person,
+          id: persons[isAlreadyPresentId]?.id,
+        };
+        updatePhoneNumber(updatedPerson)
           .then((response) => {
             if (response?.error) {
               fetchPhonebookData();
@@ -94,7 +98,7 @@ const usePhonebookHelper = () => {
               });
               setPersons((prev) => {
                 const newPersonArr = [...prev];
-                newPersonArr[isAlreadyPresentId] = response.data;
+                newPersonArr[isAlreadyPresentId] = updatedPerson;
                 return newPersonArr;
               });
             }

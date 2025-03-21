@@ -22,7 +22,7 @@ const styles = {
 
 const Notification = ({
   show = false,
-  time = 2,
+  time = 5,
   message = "",
   onClearNotification = () => {},
   type = "success",
