@@ -4,13 +4,17 @@ const mongoose = require("mongoose");
 
 const app = express();
 
+const loginRouter = require("./controllers/login");
+const usersRouter = require("./controllers/users");
 const blogsRouter = require("./controllers/blogs");
+
 const config = require("./utils/config");
 const logger = require("./utils/logger");
 const {
   unknownEndpoint,
   errorHandler,
   requestLogger,
+  tokenExtractor,
 } = require("./utils/middleware");
 
 mongoose.set("strictQuery", false);
@@ -30,7 +34,9 @@ app.use(cors());
 app.use(express.json());
 app.use(requestLogger);
 
-app.use("/api/blogs", blogsRouter);
+app.use("/api/login", loginRouter);
+app.use("/api/users", usersRouter);
+app.use("/api/blogs", tokenExtractor, blogsRouter);
 
 app.use(unknownEndpoint);
 app.use(errorHandler);

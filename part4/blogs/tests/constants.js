@@ -99,6 +99,11 @@ const apiTestInitialBlog = [
   },
 ];
 
+const primaryUser = { username: "root", password: "sekret" };
+const secondaryUser = { username: "john", password: "doe2" };
+
+const testUsers = [primaryUser, secondaryUser];
+
 // TEST OUTPUTS --------------------------------------------------------------------------------------->
 
 const favoriteBlogSingular = {
@@ -127,7 +132,10 @@ const mostBlogAmongMultiple = {
 
 module.exports = {
   blogs,
+  testUsers,
   singleBlog,
+  primaryUser,
+  secondaryUser,
   listWithOneBlog,
   mostBlogSingular,
   singleBlogToSave,

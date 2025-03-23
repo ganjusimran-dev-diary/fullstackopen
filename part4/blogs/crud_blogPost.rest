@@ -1,23 +1,52 @@
+### BLOGS API ----------------------------------->
 GET http://localhost:3001/api/blogs
+Authorization: Bearer 
 
 ###
-POST http://localhost:3001/api/blogs/ HTTP/1.1
+POST http://localhost:3001/api/blogs HTTP/1.1
 content-type: application/json
+Authorization: Bearer 
 
 {
-    "title": "First Blog",
-    "author": "Simran Ganju",
-    "url": "https://github.com/ganjusimran-dev-diary"
+    "title": "Go To Statement Considered Harmful",
+  "author": "Edsger W. Dijkstra",
+  "url": "https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf",
+  "likes": 5
 }
 
 ###
-PUT http://localhost:3001/api/blogs/67e014a30b1e1a2ef7d850d4 HTTP/1.1
+PUT http://localhost:3001/api/blogs/67e051d1298af4895247e03a HTTP/1.1
 content-type: application/json
+Authorization: Bearer 
 
 {
-    "likes": 1,
-    "title": "Github repo"
+    "likes": {{$randomInt 1 20}},
+    "title": "Again with the repo"
 }
 
 ### 
-DELETE http://localhost:3001/api/blogs/67e01186f3d8ceeb935699ac
+DELETE http://localhost:3001/api/blogs/67e051d1298af4895247e03a
+Authorization: Bearer 
+
+### USERS API ----------------------------------->
+GET http://localhost:3001/api/users
+
+### 
+POST http://localhost:3001/api/users HTTP/1.1
+content-type: application/json
+
+{
+   "username": "rooote",
+    "name": "Superuser",
+    "password": "sa"
+}
+
+### LOGIN API ----------------------------------->
+POST http://localhost:3001/api/login HTTP/1.1
+content-type: application/json
+
+{
+   "username": "root",
+    "name": "Superuser",
+    "password": "salainen"
+}
