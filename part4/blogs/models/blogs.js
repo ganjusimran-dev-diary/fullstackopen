@@ -3,11 +3,23 @@ const mongoose = require("mongoose");
 const blogSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true,
-    minlength: 3,
+    minLength: [
+      3,
+      "Path `title` (`{VALUE}`) is shorter than the minimum allowed length (3)",
+    ],
+    required: [true, "Title is required"],
   },
   author: String,
-  url: String,
+  url: {
+    type: String,
+    validate: {
+      validator: (v) => {
+        return /^https?:\/\/.*/i.test(v);
+      },
+      message: (props) => `${props.value} is not a valid url!`,
+    },
+    required: [true, "url is required"],
+  },
   likes: Number,
 });
 
