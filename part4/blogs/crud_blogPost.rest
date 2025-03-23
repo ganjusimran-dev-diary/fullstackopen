@@ -9,3 +9,15 @@ content-type: application/json
     "author": "Simran Ganju",
     "url": "https://github.com/ganjusimran-dev-diary"
 }
+
+###
+PUT http://localhost:3001/api/blogs/67e014a30b1e1a2ef7d850d4 HTTP/1.1
+content-type: application/json
+
+{
+    "likes": 1,
+    "title": "Github repo"
+}
+
+### 
+DELETE http://localhost:3001/api/blogs/67e01186f3d8ceeb935699ac
