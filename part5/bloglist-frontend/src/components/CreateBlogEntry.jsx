@@ -31,7 +31,8 @@ const CreateBlogEntry = ({ onCreateNewBlog, onCancel }) => {
           <input
             type="text"
             value={title}
-            name="Title"
+            placeholder="enter title"
+            name="title"
             onChange={({ target }) => setTitle(target.value)}
           />
         </div>
@@ -40,7 +41,8 @@ const CreateBlogEntry = ({ onCreateNewBlog, onCancel }) => {
           <input
             type="text"
             value={author}
-            name="Author"
+            placeholder="enter author"
+            name="author"
             onChange={({ target }) => setAuthor(target.value)}
           />
         </div>
@@ -49,6 +51,7 @@ const CreateBlogEntry = ({ onCreateNewBlog, onCancel }) => {
           <input
             type="url"
             value={url}
+            placeholder="enter url"
             name="url"
             onChange={({ target }) => setUrl(target.value)}
           />

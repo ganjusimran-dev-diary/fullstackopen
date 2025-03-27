@@ -27,16 +27,21 @@ const Blog = ({ blog, onPressLike = () => {}, onPressRemove = () => {} }) => {
   };
 
   return (
-    <div style={blogStyle}>
-      <strong>
+    <div style={blogStyle} className="blog">
+      <strong className="blogTitle">
         {blog?.title} by {blog?.author}
       </strong>{" "}
-      <button onClick={toggleView}>{!detailView ? "view" : "hide"}</button>
+      <button onClick={toggleView} className="viewBlog">
+        {!detailView ? "view" : "hide"}
+      </button>
       {!!detailView && (
-        <div>
+        <div className="detailView">
           <a href={blog?.url}>{blog?.url}</a>
           <div>
-            likes {blog?.likes} <button onClick={onPressLike}>like</button>
+            likes {blog?.likes}{" "}
+            <button className="likeBlog" onClick={onPressLike}>
+              like
+            </button>
           </div>
           added by {blog?.user?.name}
           <div>
