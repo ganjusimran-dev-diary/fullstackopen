@@ -8,10 +8,9 @@ content-type: application/json
 Authorization: Bearer 
 
 {
-    "title": "Go To Statement Considered Harmful",
+    "title": "Blog before post",
   "author": "Edsger W. Dijkstra",
-  "url": "https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf",
-  "likes": 5
+  "url": "https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf"
 }
 
 ###
@@ -36,9 +35,9 @@ POST http://localhost:3001/api/users HTTP/1.1
 content-type: application/json
 
 {
-   "username": "rooote",
-    "name": "Superuser",
-    "password": "sa"
+   "username": "ganju",
+    "name": "tatiya",
+    "password": "simran"
 }
 
 ### LOGIN API ----------------------------------->
@@ -46,7 +45,6 @@ POST http://localhost:3001/api/login HTTP/1.1
 content-type: application/json
 
 {
-   "username": "root",
-    "name": "Superuser",
-    "password": "salainen"
+   "username": "ganju",
+    "password": "simran"
 }
