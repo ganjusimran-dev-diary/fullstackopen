@@ -39,9 +39,11 @@ const Blog = ({ blog, onPressLike = () => {}, onPressRemove = () => {} }) => {
             likes {blog?.likes} <button onClick={onPressLike}>like</button>
           </div>
           added by {blog?.user?.name}
+          <div>
+            <button onClick={onRemove}>remove</button>
+          </div>
         </div>
       )}
-      <button onClick={onRemove}>remove</button>
     </div>
   );
 };

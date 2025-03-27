@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { Notification } from "../components";
 import blogsService from "../services/blogs";

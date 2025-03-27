@@ -31,7 +31,7 @@ const Notification = ({
 
   useEffect(() => {
     let timeout;
-    if (!!show) {
+    if (show) {
       setVisible(true);
       timeout = setTimeout(() => {
         onClearNotification();
@@ -46,7 +46,7 @@ const Notification = ({
     };
   }, [show]);
 
-  if (!!visible) {
+  if (visible) {
     return (
       <div style={type === "success" ? styles.successDiv : styles.errorDiv}>
         <strong>{message}</strong>

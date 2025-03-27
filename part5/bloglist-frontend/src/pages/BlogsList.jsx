@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 
 import blogService from "../services/blogs";
 import { Blog, CreateBlogEntry, Notification } from "../components";
@@ -11,7 +12,7 @@ const BlogsList = ({ onLogout, user }) => {
     text: "",
   });
 
-  useEffect(() => {
+  const fetchBlogs = () => {
     blogService.getAll().then((response) => {
       if (!response?.error) {
         setBlogs(response);
@@ -19,6 +20,10 @@ const BlogsList = ({ onLogout, user }) => {
         setNotificationMessage({ type: "error", text: response.error });
       }
     });
+  };
+
+  useEffect(() => {
+    fetchBlogs();
   }, []);
 
   const onClearNotification = () =>
@@ -30,13 +35,13 @@ const BlogsList = ({ onLogout, user }) => {
   const onCreateNewBlog = (title, author, url, clearInputs) => {
     blogService.addBlog({ title, author, url }).then((response) => {
       if (!response?.error) {
-        setBlogs((prev) => [...prev, response]);
         setNotificationMessage({
           type: "success",
           text: `a new blog ${response?.title} by ${response.author} is added`,
         });
         clearInputs();
         setAddBlogView(false);
+        fetchBlogs();
       } else {
         setNotificationMessage({ type: "error", text: response.error });
       }
@@ -121,3 +126,8 @@ const BlogsList = ({ onLogout, user }) => {
 };
 
 export default BlogsList;
+
+BlogsList.propTypes = {
+  onLogout: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+};
