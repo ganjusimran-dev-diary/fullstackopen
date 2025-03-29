@@ -119,6 +119,7 @@ const BlogsList = ({ onLogout, user }) => {
           blog={blog}
           onPressLike={() => onPressLike(blog, index)}
           onPressRemove={() => onPressRemove(blog?.id, index)}
+          isCurrentUser={user?.username === blog?.user?.username}
         />
       ))}
     </div>

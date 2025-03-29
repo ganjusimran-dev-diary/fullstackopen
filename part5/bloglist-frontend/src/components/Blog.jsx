@@ -9,7 +9,12 @@ const blogStyle = {
   padding: 4,
 };
 
-const Blog = ({ blog, onPressLike = () => {}, onPressRemove = () => {} }) => {
+const Blog = ({
+  blog,
+  onPressLike = () => {},
+  onPressRemove = () => {},
+  isCurrentUser = false,
+}) => {
   const [detailView, setDetailView] = useState(false);
 
   const toggleView = () => {
@@ -31,7 +36,7 @@ const Blog = ({ blog, onPressLike = () => {}, onPressRemove = () => {} }) => {
       <strong className="blogTitle">
         {blog?.title} by {blog?.author}
       </strong>{" "}
-      <button onClick={toggleView} className="viewBlog">
+      <button onClick={toggleView} id="view-blog" className="viewBlog">
         {!detailView ? "view" : "hide"}
       </button>
       {!!detailView && (
@@ -39,13 +44,13 @@ const Blog = ({ blog, onPressLike = () => {}, onPressRemove = () => {} }) => {
           <a href={blog?.url}>{blog?.url}</a>
           <div>
             likes {blog?.likes}{" "}
-            <button className="likeBlog" onClick={onPressLike}>
+            <button className="likeBlog" id="like-blog" onClick={onPressLike}>
               like
             </button>
           </div>
           added by {blog?.user?.name}
           <div>
-            <button onClick={onRemove}>remove</button>
+            {!!isCurrentUser && <button onClick={onRemove}>remove</button>}
           </div>
         </div>
       )}
