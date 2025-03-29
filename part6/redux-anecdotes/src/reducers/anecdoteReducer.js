@@ -19,7 +19,7 @@ const asObject = (anecdote) => {
 
 const initialState = anecdotesAtStart.map(asObject);
 
-const anecdotereducer = (state = initialState, action) => {
+const anecdoteReducer = (state = initialState, action) => {
   switch (action.type) {
     case "ADD_ANECDOTE":
       if (action.payload?.content) {
@@ -63,4 +63,4 @@ export const voteAnecdote = (id) => {
   };
 };
 
-export default anecdotereducer;
+export default anecdoteReducer;
