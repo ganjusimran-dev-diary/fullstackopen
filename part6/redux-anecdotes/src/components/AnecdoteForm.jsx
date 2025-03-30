@@ -2,7 +2,11 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 
 import { createAnecdote } from "../reducers/anecdoteReducer";
-import { creationNotification } from "../reducers/notificationReducer";
+import {
+  creationNotification,
+  errorNotification,
+} from "../reducers/notificationReducer";
+import { createNewAnecdote } from "../service";
 
 const AnecdoteForm = () => {
   const dispatch = useDispatch();
@@ -12,11 +16,18 @@ const AnecdoteForm = () => {
     setAnecdoteText(event.target.value);
   };
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
+    if (!anecdoteText) {
+      return;
+    }
     event.preventDefault();
-    dispatch(createAnecdote(anecdoteText));
-    setAnecdoteText("");
-    dispatch(creationNotification(anecdoteText));
+    try {
+      const response = await createNewAnecdote(anecdoteText);
+      dispatch(createAnecdote(response));
+      setAnecdoteText("");
+    } catch (err) {
+      dispatch(errorNotification());
+    }
   };
 
   return (
@@ -30,7 +41,9 @@ const AnecdoteForm = () => {
             placeholder="Enter new anacdote here"
           />
         </div>
-        <button type="submit">create</button>
+        <button disabled={!anecdoteText} type="submit">
+          create
+        </button>
       </form>
     </div>
   );

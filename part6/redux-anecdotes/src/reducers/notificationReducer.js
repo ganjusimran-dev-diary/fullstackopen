@@ -10,12 +10,19 @@ const notificationSlice = createSlice({
     creationNotification(state, action) {
       return `you added '${action.payload}'`;
     },
+    errorNotification(state, action) {
+      return action.payload || "Something went wrong, Please try again later!";
+    },
     resetNotification(state, action) {
       return "";
     },
   },
 });
 
-export const { voteNotification, creationNotification, resetNotification } =
-  notificationSlice.actions;
+export const {
+  voteNotification,
+  creationNotification,
+  resetNotification,
+  errorNotification,
+} = notificationSlice.actions;
 export default notificationSlice.reducer;
