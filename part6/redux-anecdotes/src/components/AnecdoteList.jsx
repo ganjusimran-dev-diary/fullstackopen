@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { setAnecdotes, voteForAnedote } from "../reducers/anecdoteReducer";
-import { voteNotification } from "../reducers/notificationReducer";
-import { getAllAnecdotes } from "../service";
+import { getAllAnecdotes, voteAnecdote } from "../service";
+
+const style = { padding: 8, borderBottom: "1px dashed lightgrey" };
 
 const AnecdoteList = () => {
   const anecdotes = useSelector((state) => state.anecdotes);
@@ -12,8 +12,7 @@ const AnecdoteList = () => {
 
   const fetchAnecdotes = async () => {
     try {
-      const response = await getAllAnecdotes();
-      dispatch(setAnecdotes(response.sort((a1, a2) => a2.votes - a1.votes)));
+      dispatch(getAllAnecdotes());
     } catch (err) {
       console.log(err);
     }
@@ -23,9 +22,8 @@ const AnecdoteList = () => {
     fetchAnecdotes();
   }, []);
 
-  const vote = (id, content) => {
-    dispatch(voteForAnedote(id));
-    dispatch(voteNotification(content));
+  const vote = (anecdote) => {
+    dispatch(voteAnecdote(anecdote));
   };
 
   return (
@@ -33,13 +31,11 @@ const AnecdoteList = () => {
       {anecdotes.map((anecdote) => {
         if (anecdote.content.toLowerCase().includes(filter.toLowerCase())) {
           return (
-            <div key={anecdote.id}>
+            <div style={style} key={anecdote.id}>
               <div>{anecdote.content}</div>
               <div>
                 has {anecdote.votes}
-                <button onClick={() => vote(anecdote.id, anecdote.content)}>
-                  vote
-                </button>
+                <button onClick={() => vote(anecdote)}>vote</button>
               </div>
             </div>
           );
